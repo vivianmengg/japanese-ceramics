@@ -1,0 +1,139 @@
+// fetch-japanese-cleveland.js
+// Fetches Japanese ceramics from the Cleveland Museum of Art Open Access API.
+// No API key needed. CC0 licensed.
+// Run: node fetch-japanese-cleveland.js
+// Writes: japanese-cleveland-data.js
+
+import { writeFile } from 'fs/promises';
+
+const BASE      = 'https://openaccess-api.clevelandart.org';
+const OUTPUT    = './japanese-cleveland-data.js';
+const PAGE_SIZE = 100;
+
+const PERIODS = [
+  { id: 'jomon',      start: -10500, end:  -300 },
+  { id: 'yayoi',      start:   -300, end:   300 },
+  { id: 'nara-heian', start:    710, end:  1185 },
+  { id: 'kamakura',   start:   1185, end:  1573 },
+  { id: 'momoyama',   start:   1573, end:  1615 },
+  { id: 'edo',        start:   1615, end:  1868 },
+  { id: 'meiji',      start:   1868, end:  1912 },
+];
+
+function periodFromString(s) {
+  if (!s) return null;
+  const p = s.toLowerCase();
+  if (p.includes('jōmon') || p.includes('jomon'))                           return 'jomon';
+  if (p.includes('yayoi'))                                                   return 'yayoi';
+  if (p.includes('nara') || p.includes('heian') || p.includes('asuka'))     return 'nara-heian';
+  if (p.includes('kamakura') || p.includes('muromachi') || p.includes('nanboku') ||
+      p.includes('namboku') || p.includes('ashikaga'))                       return 'kamakura';
+  if (p.includes('momoyama') || p.includes('azuchi'))                       return 'momoyama';
+  if (p.includes('edo') || p.includes('tokugawa'))                          return 'edo';
+  if (p.includes('meiji') || p.includes('taisho') || p.includes('taishō') ||
+      p.includes('showa') || p.includes('shōwa') || p.includes('modern'))   return 'meiji';
+  return null;
+}
+
+function periodFromDates(begin, end) {
+  if (begin == null && end == null) return null;
+  const s = begin ?? end, e = end ?? begin;
+  let bestId = null, bestOverlap = 0;
+  for (const p of PERIODS) {
+    const overlap = Math.min(e, p.end) - Math.max(s, p.start);
+    if (overlap > bestOverlap) { bestOverlap = overlap; bestId = p.id; }
+  }
+  if (bestId) return bestId;
+  const mid = (s + e) / 2;
+  let nearest = PERIODS[0], minDist = Infinity;
+  for (const p of PERIODS) {
+    const dist = Math.abs(mid - (p.start + p.end) / 2);
+    if (dist < minDist) { minDist = dist; nearest = p; }
+  }
+  return nearest.id;
+}
+
+async function fetchPage(skip) {
+  const url = `${BASE}/api/artworks/?department=Japanese+Art&type=Ceramic&has_image=1&limit=${PAGE_SIZE}&skip=${skip}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status} at skip=${skip}`);
+  return res.json();
+}
+
+async function main() {
+  console.log('Fetching Cleveland Museum of Art — Japanese Ceramics...\n');
+
+  const first = await fetchPage(0);
+  const total = first.info.total;
+  const pages = Math.ceil(total / PAGE_SIZE);
+  console.log(`Total: ${total} objects across ${pages} pages\n`);
+
+  const raw = [...first.data];
+  for (let p = 1; p < pages; p++) {
+    process.stdout.write(`\r  Fetching page ${p + 1}/${pages}...`);
+    const data = await fetchPage(p * PAGE_SIZE);
+    raw.push(...data.data);
+  }
+  console.log(`\n  Done — ${raw.length} records fetched\n`);
+
+  const groups = {};
+  for (const p of PERIODS) groups[p.id] = [];
+  groups.other = [];
+
+  let usedCollection = 0, usedDates = 0, skipped = 0;
+
+  for (const o of raw) {
+    if (!o.images?.web?.url) { skipped++; continue; }
+
+    // Cleveland collection field: e.g. "Japan - Edo Period" or "Japan - Meiji Period"
+    let bucket = periodFromString(o.collection);
+    if (bucket) { usedCollection++; }
+    else {
+      bucket = periodFromDates(o.creation_date_earliest, o.creation_date_latest);
+      if (bucket) usedDates++;
+      else { groups.other.push(o); skipped++; continue; }
+    }
+
+    groups[bucket].push({
+      objectID:        o.id,
+      title:           o.title || 'Untitled',
+      culture:         o.culture?.[0] || 'Japan',
+      objectDate:      o.creation_date || '',
+      objectBeginDate: o.creation_date_earliest ?? null,
+      objectEndDate:   o.creation_date_latest   ?? null,
+      medium:          o.technique || '',
+      description:     o.description || '',
+      objectURL:       o.url || `https://www.clevelandart.org/art/${o.accession_number}`,
+      primaryImageSmall: o.images.web.url,
+      source:          'cleveland',
+    });
+  }
+
+  for (const objs of Object.values(groups)) {
+    objs.sort((a, b) => (a.objectBeginDate ?? 9999) - (b.objectBeginDate ?? 9999));
+  }
+
+  console.log('Classification method:');
+  console.log(`  From collection string: ${usedCollection}`);
+  console.log(`  From date fallback:     ${usedDates}`);
+  console.log(`  Skipped/unclassified:   ${skipped}`);
+
+  console.log('\nDistribution:');
+  let grand = 0;
+  for (const p of [...PERIODS, { id: 'other' }]) {
+    const n = groups[p.id]?.length ?? 0;
+    if (n) { console.log(`  ${p.id.padEnd(14)} ${n}`); grand += n; }
+  }
+  console.log(`  ${'TOTAL'.padEnd(14)} ${grand}`);
+
+  const out = `// Auto-generated by fetch-japanese-cleveland.js
+// ${new Date().toISOString()} — ${grand} objects
+// Cleveland Museum of Art Open Access — Japanese Ceramics (CC0)
+// To refresh: node fetch-japanese-cleveland.js
+const JAPANESE_CLEVELAND_DATA = ${JSON.stringify(groups, null, 2)};
+`;
+  await writeFile(OUTPUT, out);
+  console.log(`\nWrote ${OUTPUT} (${Math.round(Buffer.byteLength(out) / 1024)} KB)`);
+}
+
+main().catch(console.error);

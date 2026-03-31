@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRR7RPLG2N"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JRR7RPLG2N');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="origin-when-cross-origin">
+  <title>Japanese Pottery — A Visual Timeline</title>
+  <link rel="icon" type="image/jpeg" href="https://ids.si.edu/ids/download?id=FS-F1952.13_001_screen">
+  <meta name="description" content="12,000 years of Japanese pottery, by period. Browse Jōmon through Meiji across museum collections.">
+  <meta name="author" content="Vivian Meng">
+  <meta name="copyright" content="© 2026 Vivian Meng">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Japanese Pottery — A Visual Timeline by Period">
+  <meta property="og:description" content="12,000 years of Japanese pottery, by period. Browse Jōmon through Meiji across museum collections.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Japanese Pottery — A Visual Timeline by Period">
+  <meta name="twitter:description" content="12,000 years of Japanese pottery, by period. Browse Jōmon through Meiji across museum collections.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #F2EDE3;
+      --sidebar-bg:  #EAE3D5;
+      --card-bg:     #FDFAF5;
+      --border:      #D5C9B5;
+      --text-dark:   #261C10;
+      --text-mid:    #6B5540;
+      --text-light:  #A08870;
+      --accent:      #2C4A7C;
+      --accent-soft: #5A789A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 1.75rem 3rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+    }
+
+    header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.6rem;
+      letter-spacing: 0.02em;
+      color: var(--text-dark);
+    }
+
+    header .subtitle {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ── LAYOUT ── */
+    .layout {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 210px;
+      min-width: 210px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      padding: 2rem 0 4rem;
+      position: sticky;
+      top: 0;
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding: 0 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .timeline { position: relative; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 2rem;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .dynasty-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 0.65rem 1.25rem 0.65rem 1.6rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s;
+    }
+
+    .dynasty-btn:hover { background: rgba(44,74,124,0.06); }
+    .dynasty-btn.active { background: rgba(44,74,124,0.1); }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--sidebar-bg);
+      flex-shrink: 0;
+      margin-top: 3px;
+      position: relative;
+      z-index: 1;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .dynasty-btn.active .dot {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    .btn-text { display: flex; flex-direction: column; }
+
+    .btn-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+
+    .dynasty-btn.active .btn-name { color: var(--accent); }
+
+    .btn-period {
+      font-size: 0.6rem;
+      color: var(--text-light);
+      margin-top: 0.1rem;
+    }
+
+    .btn-count {
+      font-size: 0.58rem;
+      color: var(--text-light);
+      margin-top: 0.15rem;
+      letter-spacing: 0.03em;
+    }
+
+    .dynasty-btn.active .btn-count { color: var(--accent-soft); }
+
+    /* ── MAIN ── */
+    .main {
+      flex: 1;
+      padding: 3rem 3.5rem;
+      max-width: 1080px;
+    }
+
+    .dynasty-header {
+      padding-bottom: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta-row {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .dynasty-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 0.5rem;
+    }
+
+    .dynasty-header h2 em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .dynasty-period {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+    }
+
+    .dynasty-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--text-mid);
+      max-width: 640px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+    }
+
+    .tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.55rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text-mid);
+    }
+
+    /* ── VESSEL GRID ── */
+    .section-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 1.25rem;
+    }
+
+    .vessel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .vessel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1.25rem 0.9rem 1rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+    }
+
+    .vessel-card:hover {
+      border-color: var(--accent-soft);
+      box-shadow: 0 3px 14px rgba(44,74,124,0.09);
+      transform: translateY(-1px);
+    }
+
+    .vessel-icon {
+      width: 72px;
+      height: 100px;
+      margin-bottom: 1rem;
+    }
+
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-type {
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    /* ── MODAL ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(38,28,16,0.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(2px);
+      animation: overlay-in 0.2s ease;
+    }
+
+    @keyframes overlay-in {
+      from { opacity: 0; backdrop-filter: blur(0px); }
+      to   { opacity: 1; backdrop-filter: blur(2px); }
+    }
+
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 2.5rem;
+      max-width: 480px;
+      width: 92%;
+      position: relative;
+      animation: modal-in 0.18s ease;
+    }
+
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: var(--text-light);
+      line-height: 1;
+      padding: 0.25rem;
+    }
+
+    .modal-close:hover { color: var(--text-dark); }
+
+    .modal-icon {
+      width: 90px;
+      height: 126px;
+      display: block;
+      margin: 0 auto 1.5rem;
+    }
+
+    .modal h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 0.15rem;
+    }
+
+    .modal-sub {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      font-family: serif;
+      margin-bottom: 0.9rem;
+    }
+
+    .modal-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-tags .tag { border-color: var(--border); }
+
+    .modal-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-mid);
+    }
+
+    .svg-note {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.68rem;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* ── COLLECTION SECTION ── */
+    .met-section {
+      margin-top: 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .met-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 1.1rem;
+      margin-top: 1.25rem;
+    }
+
+    .met-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+      animation: card-in 0.35s ease backwards;
+    }
+
+    @keyframes card-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .met-card:hover {
+      border-color: var(--accent-soft);
+      box-shadow: 0 4px 18px rgba(44,74,124,0.11);
+      transform: translateY(-2px);
+    }
+
+    .met-card img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      background: var(--border);
+    }
+
+    .met-card-info {
+      padding: 0.75rem 0.8rem 0.85rem;
+    }
+
+    .met-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      line-height: 1.35;
+      margin-bottom: 0.25rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .met-card-date {
+      font-size: 0.6rem;
+      color: var(--text-light);
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .met-card-link {
+      font-size: 0.58rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* Skeleton loading */
+    .met-skeleton {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skeleton-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(90deg, var(--border) 25%, #ede4d6 50%, var(--border) 75%);
+      background-size: 300% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .skeleton-line {
+      margin: 0.75rem 0.8rem 0.4rem;
+      height: 0.7rem;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--border) 25%, #ede4d6 50%, var(--border) 75%);
+      background-size: 300% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .skeleton-line.short {
+      width: 55%;
+      margin: 0 0.8rem 0.85rem;
+      height: 0.55rem;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position:  200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .met-empty {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      font-style: italic;
+      padding: 0.75rem 0;
+    }
+
+    /* ── SEARCH ── */
+    .search-wrap {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: var(--text-dark);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.3rem 1.8rem 0.3rem 0.65rem;
+      width: 190px;
+      outline: none;
+      transition: border-color 0.15s, width 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-soft);
+      width: 240px;
+    }
+
+    .search-input::placeholder { color: var(--text-light); }
+
+    .search-clear {
+      position: absolute;
+      right: 0.45rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      font-size: 0.75rem;
+      padding: 0;
+      line-height: 1;
+      display: none;
+    }
+
+    .search-clear:hover { color: var(--text-dark); }
+    .search-clear.visible { display: block; }
+
+    .search-results-header {
+      margin-bottom: 2rem;
+    }
+
+    .search-results-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--text-dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .search-results-header h2 em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .search-results-meta {
+      font-size: 0.65rem;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .search-dynasty-group {
+      margin-bottom: 2.5rem;
+    }
+
+    .search-dynasty-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .search-dynasty-label .dynasty-name {
+      color: var(--text-mid);
+    }
+
+    .search-no-results {
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .search-no-results p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--text-light);
+    }
+
+    .search-no-results .search-hint {
+      font-size: 0.65rem;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+      margin-top: 0.5rem;
+    }
+
+    .met-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 0.57rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-right: 0.15rem;
+    }
+
+    .filter-chip {
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text-light);
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.12s, color 0.12s, background 0.12s, transform 0.1s;
+    }
+
+    .filter-chip:hover {
+      border-color: var(--accent-soft);
+      color: var(--text-mid);
+    }
+
+    .filter-chip:active { transform: scale(0.93); }
+
+    .filter-chip.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(44,74,124,0.06);
+    }
+
+    .met-footer {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .load-more {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      border: 1px solid var(--border);
+      background: none;
+      padding: 0.45rem 1rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .load-more:hover {
+      border-color: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .met-count {
+      font-size: 0.65rem;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── FAVOURITES ── */
+    .met-card { position: relative; }
+
+    .fav-btn {
+      position: absolute;
+      top: 0.35rem;
+      right: 0.35rem;
+      width: 1.55rem;
+      height: 1.55rem;
+      border: none;
+      background: rgba(253,250,245,0.88);
+      backdrop-filter: blur(2px);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 0.8rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s, transform 0.12s, color 0.12s;
+      color: var(--text-light);
+      z-index: 2;
+      padding: 0;
+    }
+    .met-card:hover .fav-btn { opacity: 1; }
+    .fav-btn.saved { opacity: 1; color: var(--accent); }
+    .fav-btn:hover { transform: scale(1.18); color: var(--accent); }
+    .fav-btn.pop { animation: fav-pop 0.22s ease; }
+    @keyframes fav-pop {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.35); }
+      100% { transform: scale(1); }
+    }
+
+    /* Sidebar saved button */
+    .fav-sidebar-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: none;
+      cursor: pointer;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      transition: border-color 0.15s, color 0.15s;
+      text-align: left;
+    }
+    .fav-sidebar-btn:hover { border-color: var(--accent-soft); color: var(--accent); }
+    .fav-sidebar-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(44,74,124,0.05); }
+    .fav-sidebar-btn .fav-heart { font-size: 0.85rem; }
+    .fav-count { font-variant-numeric: tabular-nums; }
+
+    /* Favourites view */
+    .fav-header { margin-bottom: 2rem; }
+    .fav-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 0.3rem;
+    }
+    .fav-header h2 em { color: var(--accent); font-style: italic; }
+    .fav-header p {
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-light);
+    }
+    .fav-dynasty-group { margin-bottom: 2rem; }
+    .fav-dynasty-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .fav-empty {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--text-light);
+      padding: 3rem 0;
+      line-height: 1.8;
+    }
+    .fav-empty span { display: block; font-size: 0.72rem; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; margin-top: 0.5rem; }
+
+    /* ── MAIN CONTENT FADE ── */
+    .main { transition: opacity 0.12s ease; }
+    .main.fading { opacity: 0; }
+
+    /* ── DYNASTY BTN DOT PULSE on activation ── */
+    .dynasty-btn.active .dot {
+      box-shadow: 0 0 0 3px rgba(44,74,124,0.15);
+    }
+
+    /* ── RESPECT REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      .met-card, .met-card img, .overlay, .modal,
+      .fav-btn, .filter-chip, .vessel-card, .main {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 680px) {
+      header {
+        padding: 1rem 1.25rem;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      header h1 { font-size: 1.2rem; }
+      .subtitle { display: none; }
+      .search-wrap { width: 100%; justify-content: space-between; }
+      .search-input { width: 100%; }
+      .search-input:focus { width: 100%; }
+
+      .layout { flex-direction: column; }
+
+      .sidebar {
+        width: 100%;
+        min-width: unset;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 0;
+        overflow-x: auto;
+        overflow-y: visible;
+      }
+      .sidebar-label { display: none; }
+      .timeline { display: flex; flex-direction: row; white-space: nowrap; }
+      .timeline::before { display: none; }
+      .dynasty-btn {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.6rem 1rem;
+        gap: 0.2rem;
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+      }
+      .dynasty-btn.active {
+        background: none;
+        border-bottom-color: var(--accent);
+      }
+      .dot { display: none; }
+      .btn-text { align-items: center; }
+      .btn-name { font-size: 0.85rem; }
+      .btn-period { display: none; }
+      .btn-count { display: none; }
+      .fav-sidebar-btn {
+        display: inline-flex;
+        border: none;
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+        padding: 0.6rem 1rem;
+        margin: 0;
+        width: auto;
+      }
+      .fav-sidebar-btn.active { border-bottom-color: var(--accent); background: none; }
+
+      .main { padding: 1.25rem 1rem; }
+      .dynasty-header h2 { font-size: 2rem; }
+
+      .met-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+
+      .filter-row { gap: 0.4rem; }
+
+      .modal {
+        width: 96%;
+        padding: 1.5rem 1.25rem;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+    }
+  </style>
+  <style>
+    .site-footer {
+      text-align: center;
+      padding: 2rem 1rem 2.5rem;
+      font-size: 0.8rem;
+      color: #999;
+      letter-spacing: 0.03em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Japanese Pottery</h1>
+  <span class="subtitle">A Visual Timeline by Period</span>
+  <div class="search-wrap">
+    <div class="search-input-wrap">
+      <input type="text" class="search-input" id="search-input" placeholder="Search objects…" autocomplete="off" spellcheck="false">
+      <button class="search-clear" id="search-clear" aria-label="Clear search">✕</button>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-label">Period</div>
+    <div class="timeline" id="timeline"></div>
+    <button class="fav-sidebar-btn" id="fav-sidebar-btn">
+      <span class="fav-heart">♡</span>
+      <span>Saved <span class="fav-count" id="fav-count"></span></span>
+    </button>
+  </aside>
+
+  <main class="main" id="main"></main>
+</div>
+
+<footer class="site-footer">made with ❤ by vivian meng · 2026</footer>
+
+<!-- Modal -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+    <svg class="modal-icon" id="modal-icon" viewBox="0 0 90 126"></svg>
+    <h3 id="modal-name"></h3>
+    <div class="modal-sub" id="modal-sub"></div>
+    <div class="modal-tags" id="modal-tags"></div>
+    <p class="modal-desc" id="modal-desc"></p>
+    <p class="svg-note">Vessel illustration to be added — drop your SVG file into the project folder.</p>
+  </div>
+</div>
+
+<script src="japanese-met-data.js"></script>
+<script src="japanese-harvard-data.js"></script>
+<script src="japanese-freer-data.js"></script>
+<script src="japanese-princeton-data.js"></script>
+<script src="japanese-cleveland-data.js"></script>
+<script src="japanese-artic-data.js"></script>
+<script src="japanese-colbase-data.js"></script>
+<script src="japanese-mia-data.js"></script>
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const periods = [
+  {
+    id: 'jomon',
+    name: 'Jōmon',
+    period: 'c. 10,500–300 BCE',
+    description: 'The Jōmon tradition is among the oldest pottery-making cultures in the world, predating agriculture by thousands of years. Taking its name from the cord-markings pressed into clay, Jōmon vessels range from deep cooking jars to extraordinary flame-style urns with writhing sculptural rims. The later phases produced hollow clay figurines (dogū) with goggle eyes, believed to embody spiritual forces or a goddess of fertility.',
+    kilns: ['Central Highlands tradition', 'Tohoku tradition', 'Kyushu tradition'],
+    vessels: [
+      { id: 'flame-vessel', name: 'Flame-style Vessel', type: 'Ritual / Cooking', kiln: 'Umataka tradition', desc: 'The most dramatic form in Japanese ceramics — deep cylindrical jars crowned with writhing flame-like projections of coiled and applied clay. Found primarily in the Shinano region, they combine functional depth with sculptural exuberance unmatched in any other ceramic culture.' },
+      { id: 'dogu', name: 'Dogū Figurine', type: 'Ritual', kiln: 'Various workshops', desc: 'Hollow clay figurines with exaggerated features — goggle eyes, swelling torsos, and elaborate surface patterns. Their purpose remains debated: shamanic intermediaries, representations of a mother goddess, or vessels for spiritual energy meant to be broken in ritual.' },
+      { id: 'deep-bowl', name: 'Deep Cooking Vessel', type: 'Cooking', kiln: 'Regional workshops', desc: 'The workhorse of the Jōmon household — a deep, thick-walled vessel with a pointed or rounded base suited for open-fire cooking. Their surfaces bear the cord-impressed patterns that give the culture its name, each region developing distinctive variations.' },
+    ]
+  },
+  {
+    id: 'yayoi',
+    name: 'Yayoi',
+    period: 'c. 300 BCE–300 CE',
+    description: 'Incoming people from the Korean peninsula brought wet-rice agriculture and a new ceramic tradition — smooth, thin-walled, and fired at higher temperatures than Jōmon wares. Yayoi pottery is characterised by restrained elegance: rounded storage jars, footed vessels for ritual, and large burial urns. The transition marks the beginning of Japan\'s farming civilisation and a profound shift in aesthetic values.',
+    kilns: ['Northern Kyushu workshops', 'Kinki region workshops', 'Kantō workshops'],
+    vessels: [
+      { id: 'yayoi-jar', name: 'Storage Jar', type: 'Storage', kiln: 'Northern Kyushu', desc: 'Smooth-surfaced, roundly proportioned jars used to store rice and other grains. The move away from Jōmon cord-marking toward burnished surfaces and incised geometric decoration signals a cultural shift as profound as the agricultural revolution that accompanied it.' },
+      { id: 'burial-urn', name: 'Burial Urn', type: 'Burial', kiln: 'Northern Kyushu', desc: 'Large paired jars used as coffins for infant and child burials. The practice, widespread in northern Kyushu, reflects both the ritual importance of ceramics and the influence of continental burial customs brought from the Korean peninsula.' },
+    ]
+  },
+  {
+    id: 'nara-heian',
+    name: 'Nara & Heian',
+    period: '710–1185 CE',
+    description: 'Direct engagement with Tang China transforms Japanese material culture. Tri-colour glazed wares (sansei) — modelled on Tang sancai — appear in aristocratic contexts. Sue ware, a high-fired grey stoneware fired in reduction, serves both ritual and daily needs. The Heian period refines ceramic production for the imperial court at Kyoto while Buddhist temples drive demand for incense burners and ritual vessels.',
+    kilns: ['Sue ware kilns (nationwide)', 'Seto kilns (Owari)', 'Tōno kilns'],
+    vessels: [
+      { id: 'sue-jar', name: 'Sue Ware Jar', type: 'Storage / Ritual', kiln: 'Sue tradition', desc: 'Grey stoneware fired in reduction at high temperature — a technology introduced from Korea. The austere grey surface and elegant proportions made Sue ware indispensable for both court rituals and everyday storage across the archipelago.' },
+      { id: 'tri-colour-ewer', name: 'Sansei Ewer', type: 'Ritual / Display', kiln: 'Nara workshops', desc: 'Lead-glazed wares in green, amber, and white — modelled directly on Tang sancai. These technically demanding vessels were made for aristocratic tombs and temple offerings, carrying the full prestige of continental culture into the Japanese court.' },
+    ]
+  },
+  {
+    id: 'kamakura',
+    name: 'Kamakura & Muromachi',
+    period: '1185–1573 CE',
+    description: 'The samurai class redirects taste from continental refinement toward the austere and natural. The Six Ancient Kilns — Bizen, Shigaraki, Tokoname, Echizen, Seto, Tamba — fire unglazed or ash-glazed stoneware whose beauty lies in the marks of fire itself: natural ash glaze dripping down shoulders, flame-scorched surfaces (hidasuki), and watery glaze pools called bidoro. The emergence of the tea ceremony (chanoyu) in the Muromachi period transforms the humble tea bowl into an object of intense aesthetic scrutiny.',
+    kilns: ['Bizen (Okayama)', 'Shigaraki (Shiga)', 'Tokoname (Aichi)', 'Echizen (Fukui)', 'Seto (Aichi)', 'Tamba (Hyogo)'],
+    vessels: [
+      { id: 'bizen-water-jar', name: 'Bizen Water Jar', type: 'Tea ceremony', kiln: 'Bizen', desc: 'Unglazed iron-rich stoneware fired in long anagama kilns. The orange and red surface markings (hidasuki) caused by straw rope wrapping, the blue-grey patches of natural ash accumulation — every vessel from Bizen is unrepeatable, a record of its own firing.' },
+      { id: 'shigaraki-jar', name: 'Shigaraki Storage Jar', type: 'Storage', kiln: 'Shigaraki', desc: 'Coarse-tempered stoneware with a rough, gritty texture from the silica-rich local clay. The glassy pools of natural ash glaze (bidoro) that collect on shoulders and rims were later reinterpreted by tea masters as ideal expressions of rustic natural beauty.' },
+      { id: 'seto-teabowl', name: 'Seto Tea Bowl', type: 'Tea ceremony', kiln: 'Seto', desc: 'Seto was Japan\'s first kiln to produce ash-glazed wares in imitation of Chinese celadon — earning the word "setomono" as the generic Japanese term for ceramics. Tea masters prized their ash-yellow and olive glazes as appropriately Japanese alternatives to continental models.' },
+    ]
+  },
+  {
+    id: 'momoyama',
+    name: 'Momoyama',
+    period: '1573–1615 CE',
+    description: 'Forty years of concentrated aesthetic revolution. The great tea masters Sen no Rikyū and his successors elevate the raku bowl, hand-formed and low-fired, to its highest expression. Shino ware at Mino produces Japan\'s first white-glazed ceramics; Oribe follows with bold asymmetry and painterly iron decoration. Korean potters brought to Japan after Hideyoshi\'s invasions establish the Hagi, Karatsu, and other kiln traditions. The wabi aesthetic — beauty in imperfection, transience, incompleteness — takes permanent hold.',
+    kilns: ['Raku (Kyoto)', 'Mino — Shino · Oribe (Aichi/Gifu)', 'Karatsu (Saga)', 'Hagi (Yamaguchi)'],
+    vessels: [
+      { id: 'raku-teabowl', name: 'Raku Tea Bowl', type: 'Tea ceremony', kiln: 'Raku', desc: 'Hand-formed rather than wheel-thrown, fired at low temperature in a small saggar, and cooled rapidly in the open air. The form is almost brutally irregular; the surface bears the impress of the maker\'s hands. Sen no Rikyū\'s collaboration with tile-maker Chōjirō produced the first raku bowls — objects that embody wabi at its most radical.' },
+      { id: 'shino-jar', name: 'Shino Jar', type: 'Tea ceremony / Storage', kiln: 'Mino — Shino', desc: 'Japan\'s first white-glazed ware. The thick feldspathic glaze crawls and pinholes across the surface, trapping carbon in pockets of grey. Beneath the white, iron pigment decoration shows through with dreamlike softness. Shino\'s combination of whiteness, texture, and gestural brushwork is unlike any other ceramic tradition.' },
+      { id: 'oribe-dish', name: 'Oribe Dish', type: 'Food service', kiln: 'Mino — Oribe', desc: 'Named for tea master Furuta Oribe, these wares push Japanese aesthetics into wilful asymmetry: deliberately warped forms, bold geometric patterns in iron-black, and striking copper-green pools of glaze. Oribe represents the most self-consciously artistic statement in Japanese ceramic history.' },
+    ]
+  },
+  {
+    id: 'edo',
+    name: 'Edo',
+    period: '1615–1868 CE',
+    description: 'The discovery of porcelain clay at Arita in Kyushu, c. 1616, transforms the Japanese ceramic landscape. Imari and Kakiemon porcelains, fired with underglaze blue and brilliant overglaze enamels, flood Asian and European export markets. Nabeshima ware serves the aristocracy with controlled perfection. Meanwhile, Kyoto potter Ogata Kenzan brings literary painting into the ceramic surface. The distance between luxury export wares and intimate tea ceramics widens into the defining tension of the period.',
+    kilns: ['Arita / Imari (Saga)', 'Kakiemon (Saga)', 'Nabeshima (Saga)', 'Kenzan style (Kyoto)', 'Kyōyaki (Kyoto)'],
+    vessels: [
+      { id: 'imari-vase', name: 'Imari Vase', type: 'Display / Export', kiln: 'Arita / Imari', desc: 'Blue underglaze landscapes and floral grounds overlaid with overglaze red, gold, and green — the Imari palette became one of the most recognisable ceramic vocabularies in the world. Tens of thousands of pieces were exported through the port of Imari to Europe and Asia, replacing Chinese export wares after the kilns at Jingdezhen were disrupted by the Ming–Qing transition.' },
+      { id: 'kakiemon-dish', name: 'Kakiemon Dish', type: 'Display / Export', kiln: 'Kakiemon', desc: 'A milky-white ground (nigoshide) left largely empty, with sparse, exquisitely painted decoration in soft reds, blues, greens, and yellows. The Kakiemon aesthetic — negative space, lightness, asymmetry — profoundly influenced European porcelain at Meissen and Chelsea and remains one of Japan\'s most internationally recognised ceramic contributions.' },
+      { id: 'nabeshima-plate', name: 'Nabeshima Plate', type: 'Aristocratic dining', kiln: 'Nabeshima', desc: 'Produced exclusively for the Nabeshima domain lord as gifts to the Tokugawa shogunate, these plates combine underglaze blue with overglaze enamels in compositions of fastidious precision. The comb-tooth pattern on the foot ring is a Nabeshima signature — an emblem of the absolute quality control maintained by this closed, aristocratic kiln.' },
+      { id: 'kenzan-teabowl', name: 'Kenzan Tea Bowl', type: 'Tea ceremony', kiln: 'Kenzan — Kyoto', desc: 'Ogata Kenzan (1663–1743) turned the tea bowl into a surface for poetry and ink-painting, applying calligraphy and landscapes in iron pigment with the same brushwork he used on paper. His wares are simultaneously pottery and painting — a fusion unique in Japanese ceramic history.' },
+    ]
+  },
+  {
+    id: 'meiji',
+    name: 'Meiji',
+    period: '1868–1912 CE',
+    description: 'Japan industrialises at revolutionary speed while simultaneously re-evaluating its ceramic heritage. Satsuma ware — dense cream-ground earthenware covered in gold and polychrome enamel — becomes a defining export commodity at world exhibitions from Vienna to Chicago. Factory-produced porcelain competes with studio potters who look back to the Six Ancient Kilns and the wabi tradition. The tension between industrial modernity and handcraft continuity that defines this period persists through the twentieth century.',
+    kilns: ['Satsuma (Kagoshima)', 'Kyōyaki (Kyoto)', 'Banko (Mie)', 'Arita industrial kilns'],
+    vessels: [
+      { id: 'satsuma-vase', name: 'Satsuma Vase', type: 'Display / Export', kiln: 'Satsuma', desc: 'Densely decorated cream earthenware with gold-outlined designs in polychrome enamel — typically landscapes, figures, flowers, and mythological scenes. Made in large numbers for the Western export market, Satsuma pieces were collected across Europe and America and remain among the most recognisable symbols of Meiji-era Japanese craft.' },
+      { id: 'studio-teabowl', name: 'Studio Tea Bowl', type: 'Tea ceremony', kiln: 'Various', desc: 'Even as industrialisation accelerated, individual studio potters continued making hand-formed tea bowls in the tradition of Raku and the old kilns. These objects represent a conscious resistance to modernity — a claim that the wabi values of imperfection and quiet attention still had a place in the new Japan.' },
+    ]
+  },
+];
+
+// ── PLACEHOLDER SVG ───────────────────────────────────────────────────────────
+function placeholderSVG(w = 72, h = 100) {
+  const cx = w / 2;
+  const neckW = w * 0.18;
+  const shoulderW = w * 0.44;
+  const bodyW = w * 0.46;
+  const footW = w * 0.22;
+
+  const neckTop    = h * 0.06;
+  const neckBot    = h * 0.22;
+  const shoulderY  = h * 0.30;
+  const bodyMidY   = h * 0.60;
+  const footTopY   = h * 0.88;
+  const footBotY   = h * 0.96;
+
+  const path = [
+    `M ${cx - neckW/2} ${neckTop}`,
+    `L ${cx + neckW/2} ${neckTop}`,
+    `C ${cx + neckW/2 + 4} ${neckBot} ${cx + shoulderW} ${shoulderY} ${cx + bodyW} ${bodyMidY}`,
+    `C ${cx + bodyW - 2} ${footTopY} ${cx + footW + 4} ${footTopY} ${cx + footW} ${footBotY}`,
+    `L ${cx - footW} ${footBotY}`,
+    `C ${cx - footW - 4} ${footTopY} ${cx - bodyW + 2} ${footTopY} ${cx - bodyW} ${bodyMidY}`,
+    `C ${cx - shoulderW} ${shoulderY} ${cx - neckW/2 - 4} ${neckBot} ${cx - neckW/2} ${neckTop}`,
+    `Z`
+  ].join(' ');
+
+  return `
+    <svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+      <path d="${path}"
+            fill="#F2EDE3"
+            stroke="#C4A882"
+            stroke-width="1.1"
+            stroke-dasharray="3 2.5"/>
+      <line x1="${cx}" y1="${h*0.52}" x2="${cx}" y2="${h*0.64}" stroke="#C4A882" stroke-width="0.9"/>
+      <line x1="${cx - h*0.06}" y1="${h*0.58}" x2="${cx + h*0.06}" y2="${h*0.58}" stroke="#C4A882" stroke-width="0.9"/>
+    </svg>
+  `;
+}
+
+// ── COLLECTION ─────────────────────────────────────────────────────────────────
+
+const PAGE_SIZE = 15;
+const metVisible = {};    // periodId → number of cards currently shown
+const activeFilters = {}; // periodId → { kiln, type }
+
+function extractKiln(medium, obj) {
+  if (obj && obj.kiln) return obj.kiln;
+  const paren = (medium || '').match(/\(([^)]+)\)/);
+  const w = paren ? paren[1].toLowerCase() : (medium || '').toLowerCase();
+  if (w.includes('bizen'))                                              return 'Bizen';
+  if (w.includes('shigaraki'))                                          return 'Shigaraki';
+  if (w.includes('tokoname'))                                           return 'Tokoname';
+  if (w.includes('echizen'))                                            return 'Echizen';
+  if (w.includes('tamba') || w.includes('tanba'))                       return 'Tamba';
+  if (w.includes('raku'))                                               return 'Raku';
+  if (w.includes('shino'))                                              return 'Shino';
+  if (w.includes('oribe'))                                              return 'Oribe';
+  if (w.includes('mino'))                                               return 'Mino';
+  if (w.includes('hagi'))                                               return 'Hagi';
+  if (w.includes('karatsu'))                                            return 'Karatsu';
+  if (w.includes('kakiemon'))                                           return 'Kakiemon';
+  if (w.includes('nabeshima'))                                          return 'Nabeshima';
+  if (w.includes('imari'))                                              return 'Imari';
+  if (w.includes('arita'))                                              return 'Arita';
+  if (w.includes('satsuma'))                                            return 'Satsuma';
+  if (w.includes('kenzan'))                                             return 'Kenzan';
+  if (w.includes('kyoto') || w.includes('kyo ware') || w.includes('kyoyaki')) return 'Kyoto';
+  if (w.includes('banko'))                                              return 'Banko';
+  if (w.includes('kutani'))                                             return 'Kutani';
+  if (w.includes('sue'))                                                return 'Sue';
+  if (w.includes('seto') && !w.includes('seto-mono'))                  return 'Seto';
+  return null;
+}
+
+const VESSEL_TYPES = ['bowl','vase','jar','ewer','bottle','dish','plate','cup','flask','figure','censer','pillow','box'];
+function extractVesselType(title) {
+  const t = (title || '').toLowerCase();
+  return VESSEL_TYPES.find(w => t.includes(w)) || null;
+}
+
+// ── FAVOURITES (storage + helpers declared here; full logic below) ─────────────
+const FAV_STORAGE_KEY = 'japanese-pottery-favourites';
+let FAVS = new Set(JSON.parse(localStorage.getItem(FAV_STORAGE_KEY) || '[]'));
+function favId(o) { return `${o.source || 'met'}|${o.objectID}`; }
+// ──────────────────────────────────────────────────────────────────────────────
+
+function metCard(o, idx = 0) {
+  const linkLabel = o.source === 'harvard'   ? 'View at Harvard ↗'
+                  : o.source === 'cleveland' ? 'View at Cleveland ↗'
+                  : o.source === 'colbase'   ? `View at ${o.museum || 'ColBase'} ↗`
+                  : o.source === 'freer'     ? 'View at Freer/Sackler ↗'
+                  : o.source === 'princeton' ? 'View at Princeton ↗'
+                  : o.source === 'artic'     ? 'View at Art Institute of Chicago ↗'
+                  :                            'View at the Met ↗';
+  const fid   = favId(o);
+  const saved = FAVS.has(fid);
+  const delay = idx < 0 ? null : Math.min(idx * 28, 400);
+  const animStyle = delay === null ? 'animation:none' : `animation-delay:${delay}ms`;
+  return `
+    <a class="met-card" href="${o.objectURL}" target="_blank" rel="noopener" style="${animStyle}">
+      <button class="fav-btn ${saved ? 'saved' : ''}" data-fid="${fid}" title="${saved ? 'Remove from saved' : 'Save'}">
+        ${saved ? '♥' : '♡'}
+      </button>
+      <img src="${o.primaryImageSmall}" alt="${o.title || ''}" loading="lazy" onerror="this.style.visibility='hidden'">
+      <div class="met-card-info">
+        <div class="met-card-title">${o.title || 'Untitled'}</div>
+        <div class="met-card-date">${[o.objectDate, o.medium].filter(Boolean).join(' · ')}</div>
+        <span class="met-card-link">${linkLabel}</span>
+      </div>
+    </a>
+  `;
+}
+
+function renderMetSection(periodId, prevVisible = 0) {
+  const el = document.getElementById('met-results');
+  if (!el) return;
+
+  const metObjects       = (typeof JAPANESE_MET_DATA       !== 'undefined' && JAPANESE_MET_DATA[periodId])       || [];
+  const harvardObjects   = (typeof JAPANESE_HARVARD_DATA   !== 'undefined' && JAPANESE_HARVARD_DATA[periodId])   || [];
+  const freerObjects     = (typeof JAPANESE_FREER_DATA     !== 'undefined' && JAPANESE_FREER_DATA[periodId])     || [];
+  const princetonObjects = (typeof JAPANESE_PRINCETON_DATA !== 'undefined' && JAPANESE_PRINCETON_DATA[periodId]) || [];
+  const clevelandObjects = (typeof JAPANESE_CLEVELAND_DATA !== 'undefined' && JAPANESE_CLEVELAND_DATA[periodId]) || [];
+  const articObjects     = (typeof JAPANESE_ARTIC_DATA     !== 'undefined' && JAPANESE_ARTIC_DATA[periodId])     || [];
+  const colbaseObjects   = (typeof JAPANESE_COLBASE_DATA   !== 'undefined' && JAPANESE_COLBASE_DATA[periodId])   || [];
+  const miaObjects       = (typeof JAPANESE_MIA_DATA       !== 'undefined' && JAPANESE_MIA_DATA[periodId])       || [];
+
+  const _seen = new Set();
+  const all = [...metObjects, ...harvardObjects, ...freerObjects, ...princetonObjects, ...clevelandObjects, ...articObjects, ...colbaseObjects, ...miaObjects]
+    .filter(o => { const k = `${o.source}:${o.objectID}`; if (_seen.has(k)) return false; _seen.add(k); return true; })
+    .sort((a, b) => {
+      const isFragment = o => /sherd|shard|fragment|potsherd|\btile\b/i.test(o.title);
+      const fa = isFragment(a) ? 1 : 0, fb = isFragment(b) ? 1 : 0;
+      if (fa !== fb) return fa - fb;
+      return (a.objectBeginDate ?? 9999) - (b.objectBeginDate ?? 9999);
+    });
+
+  if (!all.length) {
+    el.innerHTML = `<p class="met-empty">No objects found for this period.</p>`;
+    return;
+  }
+
+  const filters = activeFilters[periodId] || {};
+
+  const kilnCounts = {}, typeCounts = {};
+  all.forEach(o => {
+    const k = extractKiln(o.medium, o);
+    if (k) kilnCounts[k] = (kilnCounts[k] || 0) + 1;
+    const t = extractVesselType(o.title);
+    if (t) typeCounts[t] = (typeCounts[t] || 0) + 1;
+  });
+  const kilnValues = Object.entries(kilnCounts).filter(([,n]) => n > 1).sort((a,b) => b[1]-a[1]).map(([k]) => k);
+  const types = Object.entries(typeCounts).filter(([,n]) => n > 1).sort((a,b) => b[1]-a[1]).map(([t]) => t);
+
+  let filtered = all;
+  if (filters.kiln) filtered = filtered.filter(o => extractKiln(o.medium, o) === filters.kiln);
+  if (filters.type) filtered = filtered.filter(o => extractVesselType(o.title) === filters.type);
+
+  if (metVisible[periodId] == null) metVisible[periodId] = PAGE_SIZE;
+  const visible = Math.min(metVisible[periodId], filtered.length);
+  const hasMore = visible < filtered.length;
+
+  const kilnHtml = kilnValues.length ? `
+    <div class="filter-group">
+      <span class="filter-label">Kiln</span>
+      ${kilnValues.map(k => `<button class="filter-chip ${filters.kiln === k ? 'active' : ''}" data-ft="kiln" data-fv="${k}">${k}</button>`).join('')}
+    </div>` : '';
+
+  const typeHtml = types.length ? `
+    <div class="filter-group">
+      <span class="filter-label">Form</span>
+      ${types.map(t => `<button class="filter-chip ${filters.type === t ? 'active' : ''}" data-ft="type" data-fv="${t}">${t}</button>`).join('')}
+    </div>` : '';
+
+  const countLabel = filtered.length < all.length
+    ? `${visible} of ${filtered.length} filtered · ${all.length} total`
+    : `${visible} of ${all.length} objects`;
+
+  el.innerHTML = `
+    ${kilnHtml || typeHtml ? `<div class="met-filters">${kilnHtml}${typeHtml}</div>` : ''}
+    <div class="met-grid" id="met-grid">
+      ${filtered.length ? filtered.slice(0, visible).map((o, i) => metCard(o, i < prevVisible ? -1 : i - prevVisible)).join('') : '<p class="met-empty">No objects match these filters.</p>'}
+    </div>
+    <div class="met-footer">
+      ${hasMore ? `<button class="load-more" id="load-more-btn">Load more</button>` : ''}
+      <span class="met-count">${countLabel}</span>
+    </div>
+  `;
+
+  el.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (!activeFilters[periodId]) activeFilters[periodId] = {};
+      const ft = chip.dataset.ft, fv = chip.dataset.fv;
+      activeFilters[periodId][ft] = activeFilters[periodId][ft] === fv ? null : fv;
+      metVisible[periodId] = PAGE_SIZE;
+      renderMetSection(periodId);
+    });
+  });
+
+  document.getElementById('load-more-btn')?.addEventListener('click', () => {
+    metVisible[periodId] = visible + PAGE_SIZE;
+    renderMetSection(periodId, visible);
+  });
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+
+let active = periods[0].id;
+
+function renderSidebar() {
+  const el = document.getElementById('timeline');
+  el.innerHTML = periods.map(d => {
+    const count = (
+      ((typeof JAPANESE_MET_DATA       !== 'undefined' && JAPANESE_MET_DATA[d.id]?.length)       || 0) +
+      ((typeof JAPANESE_HARVARD_DATA   !== 'undefined' && JAPANESE_HARVARD_DATA[d.id]?.length)   || 0) +
+      ((typeof JAPANESE_FREER_DATA     !== 'undefined' && JAPANESE_FREER_DATA[d.id]?.length)     || 0) +
+      ((typeof JAPANESE_PRINCETON_DATA !== 'undefined' && JAPANESE_PRINCETON_DATA[d.id]?.length) || 0) +
+      ((typeof JAPANESE_CLEVELAND_DATA !== 'undefined' && JAPANESE_CLEVELAND_DATA[d.id]?.length) || 0) +
+      ((typeof JAPANESE_ARTIC_DATA     !== 'undefined' && JAPANESE_ARTIC_DATA[d.id]?.length)     || 0) +
+      ((typeof JAPANESE_COLBASE_DATA   !== 'undefined' && JAPANESE_COLBASE_DATA[d.id]?.length)   || 0) +
+      ((typeof JAPANESE_MIA_DATA       !== 'undefined' && JAPANESE_MIA_DATA[d.id]?.length)       || 0)
+    );
+    return `
+      <button class="dynasty-btn ${d.id === active ? 'active' : ''}" data-id="${d.id}">
+        <span class="dot"></span>
+        <span class="btn-text">
+          <span class="btn-name">${d.name}</span>
+          <span class="btn-period">${d.period}</span>
+          ${count ? `<span class="btn-count">${count} objects</span>` : ''}
+        </span>
+      </button>
+    `;
+  }).join('');
+
+  el.querySelectorAll('.dynasty-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('fav-sidebar-btn')?.classList.remove('active');
+      active = btn.dataset.id;
+      delete metVisible[active];
+      delete activeFilters[active];
+      if (searchInput && searchInput.value) {
+        searchInput.value = '';
+        searchClear?.classList.remove('visible');
+        currentQuery = '';
+      }
+      renderSidebar();
+      const mainEl = document.getElementById('main');
+      mainEl.classList.add('fading');
+      setTimeout(() => {
+        renderMain();
+        mainEl.classList.remove('fading');
+      }, 110);
+    });
+  });
+}
+
+function renderMain() {
+  const d = periods.find(x => x.id === active);
+  const kilnTags = d.kilns.map(k => `<span class="tag">${k}</span>`).join('');
+  const vesselCards = d.vessels.map(v => `
+    <div class="vessel-card" data-vessel="${v.id}" data-period="${d.id}">
+      <div class="vessel-icon">${placeholderSVG(72, 100)}</div>
+      <div class="card-name">${v.name}</div>
+      <div class="card-type">${v.type}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('main').innerHTML = `
+    <div class="dynasty-header">
+      <div class="meta-row">Period</div>
+      <h2>${d.name}</h2>
+      <div class="dynasty-period">${d.period}</div>
+      <p class="dynasty-desc">${d.description}</p>
+    </div>
+    <div class="met-section">
+      <div class="section-label">Collection — Met · Harvard · Freer/Sackler · Princeton · Cleveland · AIC · ColBase · Mia</div>
+      <div id="met-results"></div>
+    </div>
+  `;
+
+  document.querySelectorAll('.vessel-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const period = periods.find(x => x.id === card.dataset.period);
+      const vessel = period.vessels.find(v => v.id === card.dataset.vessel);
+      openModal(vessel);
+    });
+  });
+
+  renderMetSection(d.id);
+}
+
+function openModal(v) {
+  document.getElementById('modal-icon').innerHTML = placeholderSVG(90, 126).match(/<svg[^>]*>([\s\S]*?)<\/svg>/)[1];
+  document.getElementById('modal-name').textContent = v.name;
+  document.getElementById('modal-sub').textContent = v.kiln || '';
+  document.getElementById('modal-tags').innerHTML = [
+    v.type && `<span class="tag">${v.type}</span>`,
+    v.kiln && `<span class="tag">${v.kiln}</span>`,
+  ].filter(Boolean).join('');
+  document.getElementById('modal-desc').textContent = v.desc;
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('overlay')) closeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ── SEARCH ────────────────────────────────────────────────────────────────────
+
+let SEARCH_INDEX = null;
+
+function buildSearchIndex() {
+  if (SEARCH_INDEX) return;
+  SEARCH_INDEX = [];
+  const sources = [
+    [typeof JAPANESE_MET_DATA       !== 'undefined' ? JAPANESE_MET_DATA       : null],
+    [typeof JAPANESE_HARVARD_DATA   !== 'undefined' ? JAPANESE_HARVARD_DATA   : null],
+    [typeof JAPANESE_FREER_DATA     !== 'undefined' ? JAPANESE_FREER_DATA     : null],
+    [typeof JAPANESE_PRINCETON_DATA !== 'undefined' ? JAPANESE_PRINCETON_DATA : null],
+    [typeof JAPANESE_CLEVELAND_DATA !== 'undefined' ? JAPANESE_CLEVELAND_DATA : null],
+    [typeof JAPANESE_ARTIC_DATA     !== 'undefined' ? JAPANESE_ARTIC_DATA     : null],
+    [typeof JAPANESE_COLBASE_DATA   !== 'undefined' ? JAPANESE_COLBASE_DATA   : null],
+    [typeof JAPANESE_MIA_DATA       !== 'undefined' ? JAPANESE_MIA_DATA       : null],
+  ];
+  for (const [ds] of sources) {
+    if (!ds) continue;
+    for (const [periodId, objs] of Object.entries(ds)) {
+      if (periodId === 'other') continue;
+      for (const o of objs) {
+        const museumAlias = { met: 'met metropolitan' }[o.source] || o.source;
+        const text = [
+          o.title, o.medium, o.description, o.kiln,
+          o.objectDate, o.culture, o.period, museumAlias
+        ].filter(Boolean).join(' ').toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
+        SEARCH_INDEX.push({ obj: o, periodId, text });
+      }
+    }
+  }
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function searchIndex(query) {
+  const terms = query.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(t => t.length > 1);
+  if (!terms.length) return [];
+  return SEARCH_INDEX.filter(e => terms.every(t => e.text.includes(t)));
+}
+
+const SEARCH_PAGE = 15;
+const searchVisible = {};
+
+function renderSearchResults(query) {
+  buildSearchIndex();
+  const hits = searchIndex(query);
+
+  const byPeriod = {};
+  for (const p of periods) byPeriod[p.id] = [];
+  for (const hit of hits) {
+    if (byPeriod[hit.periodId]) byPeriod[hit.periodId].push(hit.obj);
+  }
+
+  const main = document.getElementById('main');
+
+  if (!hits.length) {
+    main.innerHTML = `
+      <div class="search-no-results">
+        <p>No objects found for <em>"${escapeHtml(query)}"</em></p>
+        <div class="search-hint">Try: raku · imari · bizen · kakiemon · shino · satsuma · tea bowl · porcelain</div>
+      </div>`;
+    return;
+  }
+
+  const periodGroups = periods
+    .filter(p => byPeriod[p.id]?.length)
+    .map(p => {
+      const objs = byPeriod[p.id];
+      const visKey = `${query}__${p.id}`;
+      if (searchVisible[visKey] == null) searchVisible[visKey] = SEARCH_PAGE;
+      const visible = Math.min(searchVisible[visKey], objs.length);
+      const hasMore = visible < objs.length;
+      return `
+        <div class="search-dynasty-group">
+          <div class="search-dynasty-label">
+            <span class="dynasty-name">${p.name} · ${p.period}</span>
+            <span>${objs.length} result${objs.length !== 1 ? 's' : ''}</span>
+          </div>
+          <div class="met-grid">${objs.slice(0, visible).map((o, i) => metCard(o, i)).join('')}</div>
+          ${hasMore ? `<div class="met-footer"><button class="load-more" data-period="${p.id}" data-query="${escapeHtml(query)}">Load more</button><span class="met-count">${visible} of ${objs.length}</span></div>` : ''}
+        </div>`;
+    }).join('');
+
+  main.innerHTML = `
+    <div class="search-results-header">
+      <h2>${hits.length} result${hits.length !== 1 ? 's' : ''} for <em>"${escapeHtml(query)}"</em></h2>
+      <div class="search-results-meta">across ${periods.filter(p => byPeriod[p.id]?.length).length} period${periods.filter(p => byPeriod[p.id]?.length).length !== 1 ? 's' : ''} · ${hits.length} objects</div>
+    </div>
+    ${periodGroups}
+  `;
+
+  main.querySelectorAll('.load-more[data-period]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const periodId = btn.dataset.period;
+      const visKey = `${btn.dataset.query}__${periodId}`;
+      const objs = byPeriod[periodId];
+      searchVisible[visKey] = (searchVisible[visKey] || SEARCH_PAGE) + SEARCH_PAGE;
+      const newVisible = Math.min(searchVisible[visKey], objs.length);
+      const hasMore = newVisible < objs.length;
+
+      const group = btn.closest('.search-dynasty-group');
+      const grid = group.querySelector('.met-grid');
+      const prevVisible = newVisible - SEARCH_PAGE;
+      const newCards = objs.slice(prevVisible, newVisible).map((o, i) => metCard(o, prevVisible + i)).join('');
+      grid.insertAdjacentHTML('beforeend', newCards);
+
+      const footer = btn.closest('.met-footer');
+      if (hasMore) {
+        footer.querySelector('.met-count').textContent = `${newVisible} of ${objs.length}`;
+      } else {
+        footer.remove();
+      }
+    });
+  });
+}
+
+// ── FAVOURITES ────────────────────────────────────────────────────────────────
+
+function saveFavs() {
+  localStorage.setItem(FAV_STORAGE_KEY, JSON.stringify([...FAVS]));
+}
+
+function updateFavCount() {
+  const n = FAVS.size;
+  const countEl = document.getElementById('fav-count');
+  if (countEl) countEl.textContent = n ? `(${n})` : '';
+  const btn = document.getElementById('fav-sidebar-btn');
+  if (btn) btn.querySelector('.fav-heart').textContent = n ? '♥' : '♡';
+}
+
+let ALL_OBJECTS_MAP = null;
+function buildObjectMap() {
+  if (ALL_OBJECTS_MAP) return;
+  ALL_OBJECTS_MAP = new Map();
+  const sources = [
+    typeof JAPANESE_MET_DATA       !== 'undefined' ? JAPANESE_MET_DATA       : null,
+    typeof JAPANESE_HARVARD_DATA   !== 'undefined' ? JAPANESE_HARVARD_DATA   : null,
+    typeof JAPANESE_FREER_DATA     !== 'undefined' ? JAPANESE_FREER_DATA     : null,
+    typeof JAPANESE_PRINCETON_DATA !== 'undefined' ? JAPANESE_PRINCETON_DATA : null,
+    typeof JAPANESE_CLEVELAND_DATA !== 'undefined' ? JAPANESE_CLEVELAND_DATA : null,
+    typeof JAPANESE_ARTIC_DATA     !== 'undefined' ? JAPANESE_ARTIC_DATA     : null,
+    typeof JAPANESE_COLBASE_DATA   !== 'undefined' ? JAPANESE_COLBASE_DATA   : null,
+    typeof JAPANESE_MIA_DATA       !== 'undefined' ? JAPANESE_MIA_DATA       : null,
+  ];
+  for (const ds of sources) {
+    if (!ds) continue;
+    for (const objs of Object.values(ds)) {
+      for (const o of objs) ALL_OBJECTS_MAP.set(favId(o), o);
+    }
+  }
+}
+
+function renderFavourites() {
+  buildObjectMap();
+  const main = document.getElementById('main');
+  const btn  = document.getElementById('fav-sidebar-btn');
+  btn?.classList.add('active');
+  document.querySelectorAll('.dynasty-btn').forEach(b => b.classList.remove('active'));
+
+  if (!FAVS.size) {
+    main.innerHTML = `
+      <div class="fav-header">
+        <h2>Your <em>Saved</em> Objects</h2>
+        <p>Objects you save appear here, across sessions.</p>
+      </div>
+      <div class="fav-empty">
+        Nothing saved yet.
+        <span>Click the ♡ on any object to save it here.</span>
+      </div>`;
+    return;
+  }
+
+  const byPeriod = {};
+  for (const p of periods) byPeriod[p.id] = [];
+  let unclassified = [];
+
+  for (const fid of FAVS) {
+    const o = ALL_OBJECTS_MAP.get(fid);
+    if (!o) continue;
+    let placed = false;
+    for (const ds of [
+      typeof JAPANESE_MET_DATA       !== 'undefined' ? JAPANESE_MET_DATA       : null,
+      typeof JAPANESE_HARVARD_DATA   !== 'undefined' ? JAPANESE_HARVARD_DATA   : null,
+      typeof JAPANESE_FREER_DATA     !== 'undefined' ? JAPANESE_FREER_DATA     : null,
+      typeof JAPANESE_PRINCETON_DATA !== 'undefined' ? JAPANESE_PRINCETON_DATA : null,
+      typeof JAPANESE_CLEVELAND_DATA !== 'undefined' ? JAPANESE_CLEVELAND_DATA : null,
+      typeof JAPANESE_ARTIC_DATA     !== 'undefined' ? JAPANESE_ARTIC_DATA     : null,
+      typeof JAPANESE_COLBASE_DATA   !== 'undefined' ? JAPANESE_COLBASE_DATA   : null,
+      typeof JAPANESE_MIA_DATA       !== 'undefined' ? JAPANESE_MIA_DATA       : null,
+    ]) {
+      if (!ds) continue;
+      for (const [periodId, objs] of Object.entries(ds)) {
+        if (periodId === 'other') continue;
+        if (objs.some(x => favId(x) === fid)) {
+          if (byPeriod[periodId]) byPeriod[periodId].push(o);
+          placed = true;
+          break;
+        }
+      }
+      if (placed) break;
+    }
+    if (!placed) unclassified.push(o);
+  }
+
+  const groups = periods
+    .filter(p => byPeriod[p.id]?.length)
+    .map(p => `
+      <div class="fav-dynasty-group">
+        <div class="fav-dynasty-label">${p.name} · ${p.period}</div>
+        <div class="met-grid">${byPeriod[p.id].map((o, i) => metCard(o, i)).join('')}</div>
+      </div>`)
+    .join('');
+
+  main.innerHTML = `
+    <div class="fav-header">
+      <h2>Your <em>Saved</em> Objects</h2>
+      <p>${FAVS.size} object${FAVS.size !== 1 ? 's' : ''} saved across sessions</p>
+    </div>
+    ${groups}
+  `;
+}
+
+// Event delegation: heart button clicks anywhere in the page
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.fav-btn');
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+
+  const fid = btn.dataset.fid;
+  if (FAVS.has(fid)) {
+    FAVS.delete(fid);
+  } else {
+    FAVS.add(fid);
+  }
+  saveFavs();
+
+  const saved = FAVS.has(fid);
+  document.querySelectorAll(`.fav-btn[data-fid="${CSS.escape(fid)}"]`).forEach(b => {
+    b.classList.toggle('saved', saved);
+    b.title = saved ? 'Remove from saved' : 'Save';
+    b.textContent = saved ? '♥' : '♡';
+    b.classList.remove('pop');
+    void b.offsetWidth;
+    b.classList.add('pop');
+  });
+
+  updateFavCount();
+
+  if (!saved && document.getElementById('fav-sidebar-btn')?.classList.contains('active')) {
+    renderFavourites();
+  }
+}, true);
+
+// Sidebar saved button
+document.getElementById('fav-sidebar-btn').addEventListener('click', () => {
+  currentQuery = '';
+  if (searchInput) { searchInput.value = ''; searchClear?.classList.remove('visible'); }
+  renderFavourites();
+});
+
+// Wire up search input
+let searchDebounce;
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+let currentQuery = '';
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim();
+  searchClear.classList.toggle('visible', q.length > 0);
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => {
+    currentQuery = q;
+    if (q.length < 2) {
+      renderSidebar();
+      renderMain();
+    } else {
+      renderSearchResults(q);
+    }
+  }, 200);
+});
+
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchClear.classList.remove('visible');
+  currentQuery = '';
+  renderSidebar();
+  renderMain();
+  searchInput.focus();
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderSidebar();
+renderMain();
+updateFavCount();
+</script>
+</body>
+</html>
