@@ -956,6 +956,7 @@
 <script src="japanese-artic-data.js"></script>
 <script src="japanese-colbase-data.js"></script>
 <script src="japanese-mia-data.js"></script>
+<script src="japanese-rijks-data.js"></script>
 <script>
 // ── DATA ──────────────────────────────────────────────────────────────────────
 
@@ -1169,9 +1170,10 @@ function renderMetSection(periodId, prevVisible = 0) {
   const articObjects     = (typeof JAPANESE_ARTIC_DATA     !== 'undefined' && JAPANESE_ARTIC_DATA[periodId])     || [];
   const colbaseObjects   = (typeof JAPANESE_COLBASE_DATA   !== 'undefined' && JAPANESE_COLBASE_DATA[periodId])   || [];
   const miaObjects       = (typeof JAPANESE_MIA_DATA       !== 'undefined' && JAPANESE_MIA_DATA[periodId])       || [];
+  const rijksObjects     = (typeof JAPANESE_RIJKS_DATA     !== 'undefined' && JAPANESE_RIJKS_DATA[periodId])     || [];
 
   const _seen = new Set();
-  const all = [...metObjects, ...harvardObjects, ...freerObjects, ...princetonObjects, ...clevelandObjects, ...articObjects, ...colbaseObjects, ...miaObjects]
+  const all = [...metObjects, ...harvardObjects, ...freerObjects, ...princetonObjects, ...clevelandObjects, ...articObjects, ...colbaseObjects, ...miaObjects, ...rijksObjects]
     .filter(o => { const k = `${o.source}:${o.objectID}`; if (_seen.has(k)) return false; _seen.add(k); return true; })
     .sort((a, b) => {
       const isFragment = o => /sherd|shard|fragment|potsherd|\btile\b/i.test(o.title);
@@ -1263,7 +1265,8 @@ function renderSidebar() {
       ((typeof JAPANESE_CLEVELAND_DATA !== 'undefined' && JAPANESE_CLEVELAND_DATA[d.id]?.length) || 0) +
       ((typeof JAPANESE_ARTIC_DATA     !== 'undefined' && JAPANESE_ARTIC_DATA[d.id]?.length)     || 0) +
       ((typeof JAPANESE_COLBASE_DATA   !== 'undefined' && JAPANESE_COLBASE_DATA[d.id]?.length)   || 0) +
-      ((typeof JAPANESE_MIA_DATA       !== 'undefined' && JAPANESE_MIA_DATA[d.id]?.length)       || 0)
+      ((typeof JAPANESE_MIA_DATA       !== 'undefined' && JAPANESE_MIA_DATA[d.id]?.length)       || 0) +
+      ((typeof JAPANESE_RIJKS_DATA     !== 'undefined' && JAPANESE_RIJKS_DATA[d.id]?.length)     || 0)
     );
     return `
       <button class="dynasty-btn ${d.id === active ? 'active' : ''}" data-id="${d.id}">
@@ -1318,7 +1321,7 @@ function renderMain() {
       <p class="dynasty-desc">${d.description}</p>
     </div>
     <div class="met-section">
-      <div class="section-label">Collection — Met · Harvard · Freer/Sackler · Princeton · Cleveland · AIC · ColBase · Mia</div>
+      <div class="section-label">Collection — Met · Harvard · Freer/Sackler · Princeton · Cleveland · AIC · ColBase · Mia · Rijksmuseum</div>
       <div id="met-results"></div>
     </div>
   `;
@@ -1374,6 +1377,7 @@ function buildSearchIndex() {
     [typeof JAPANESE_ARTIC_DATA     !== 'undefined' ? JAPANESE_ARTIC_DATA     : null],
     [typeof JAPANESE_COLBASE_DATA   !== 'undefined' ? JAPANESE_COLBASE_DATA   : null],
     [typeof JAPANESE_MIA_DATA       !== 'undefined' ? JAPANESE_MIA_DATA       : null],
+    [typeof JAPANESE_RIJKS_DATA     !== 'undefined' ? JAPANESE_RIJKS_DATA     : null],
   ];
   for (const [ds] of sources) {
     if (!ds) continue;
@@ -1504,6 +1508,7 @@ function buildObjectMap() {
     typeof JAPANESE_ARTIC_DATA     !== 'undefined' ? JAPANESE_ARTIC_DATA     : null,
     typeof JAPANESE_COLBASE_DATA   !== 'undefined' ? JAPANESE_COLBASE_DATA   : null,
     typeof JAPANESE_MIA_DATA       !== 'undefined' ? JAPANESE_MIA_DATA       : null,
+    typeof JAPANESE_RIJKS_DATA     !== 'undefined' ? JAPANESE_RIJKS_DATA     : null,
   ];
   for (const ds of sources) {
     if (!ds) continue;
@@ -1550,6 +1555,7 @@ function renderFavourites() {
       typeof JAPANESE_ARTIC_DATA     !== 'undefined' ? JAPANESE_ARTIC_DATA     : null,
       typeof JAPANESE_COLBASE_DATA   !== 'undefined' ? JAPANESE_COLBASE_DATA   : null,
       typeof JAPANESE_MIA_DATA       !== 'undefined' ? JAPANESE_MIA_DATA       : null,
+      typeof JAPANESE_RIJKS_DATA     !== 'undefined' ? JAPANESE_RIJKS_DATA     : null,
     ]) {
       if (!ds) continue;
       for (const [periodId, objs] of Object.entries(ds)) {
